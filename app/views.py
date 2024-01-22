@@ -9,7 +9,6 @@ from django.utils.translation import gettext_lazy as _
 
 class HomeTemplateView(TemplateView):
     template_name = 'home.html'
-
     # override get context date method
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)  # first, call super get context data
@@ -25,11 +24,12 @@ def contact(request):
         email = request.POST['email']
         name = request.POST['name']
         send_mail(
-            'Contact Form',
+            'contact form' + name, 'content: ' + message,
             message,
-            settings.EMAIL_HOST_USER,
-            [email, 'asadbekinomov3@gmail.com'],
-            fail_silently=False)
+            email,
+            [settings.EMAIL_HOST_USER],
+            fail_silently=False
+        )
         return render(request, 'home.html')
 
 
